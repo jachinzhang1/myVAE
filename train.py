@@ -14,10 +14,10 @@ from dataset import get_dataloader
 
 
 hyperparams = {
-    'epochs': 5,
-    'batch_size': 256,
+    'epochs': 20,
+    'batch_size': 512,
     'kl_weight': 0.00025,
-    'lr': 5e-3,
+    'lr': 1e-3,
     'warm_start': False,
     'pretrained_model_id': 1,
     'pretrained_epochs': 13,
@@ -41,6 +41,7 @@ def train(device, dataloader: DataLoader, model, pre_epoch_num: int):
     
     optimizer = optim.Adam(model.parameters(), hyperparams['lr'])
     dataset_len = len(dataloader.dataset)
+    # TODO: lr decay
     
     if not os.path.exists('./models'):
         os.makedirs('./models', exist_ok=True)
@@ -85,8 +86,8 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     dataloader = get_dataloader(root, hyperparams['batch_size'])
-    # model = VAE().to(device)
-    model = VQVAE2_0().to(device)
+    model = VAE().to(device)
+    # model = VQVAE2_0().to(device)
     
     pre_epoch_num = 0
     if hyperparams['warm_start']:
