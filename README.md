@@ -1,5 +1,3 @@
-TODO: accomplish readme
-
 # Variational Autoencoder Demo
 
 ## Instruction
